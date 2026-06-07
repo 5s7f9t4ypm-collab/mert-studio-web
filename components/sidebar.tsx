@@ -13,24 +13,24 @@ const navItems = [
 ]
 
 export function Sidebar() {
-  const [open, setOpen] = useState(false)
+const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  setOpen(false) // Menüyü her zaman kapat
 
-  // Hem sayfa içi kaydırma hem de sayfa değişimi için akıllı fonksiyon
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setOpen(false) // Tıklanınca menü her zaman kapansın
-
-    // Eğer link "#" ile başlıyorsa ana sayfada kaydırma yap
-    if (href.startsWith("#")) {
-      e.preventDefault()
-      const id = href.replace("#", "")
-      const element = document.getElementById(id)
-      
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        })
-      }
+  // Sadece # ile başlayanlar (sayfa içi) için kaydırma yap
+  if (href.startsWith("#")) {
+    e.preventDefault()
+    const id = href.replace("#", "")
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      })
+    }
+  }
+  // Eğer href "/projects" ise (veya başka bir rota), 
+  // e.preventDefault() çalışmaz ve Next.js seni o sayfaya otomatik atar.
+}
     }
     // Eğer "/projects" gibi farklı bir rota ise, e.preventDefault() 
     // çalışmaz ve Next.js otomatik olarak o sayfaya yönlendirir.
