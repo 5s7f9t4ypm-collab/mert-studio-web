@@ -1,6 +1,7 @@
 "use client"
 
 import { ReactLenis } from "@studio-freight/react-lenis"
+import { motion } from "framer-motion"
 import { Sidebar } from "@/components/sidebar"
 import { Hero } from "@/components/hero"
 import { Projects } from "@/components/projects"
@@ -10,18 +11,25 @@ import { Contact } from "@/components/contact"
 
 export default function Page() {
   return (
-    // root: true tüm tarayıcıyı o lüks akışa bırakır
-    // lerp: 0.08 tam arkadaşının sitesindeki o ghosting yumuşaklık kıvamı
     <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
       <div className="min-h-screen bg-background">
         <h1 className="sr-only">Mert – İstanbul Mimarlık ve Üç Boyutlu Görselleştirme Ofisi</h1>
+        
         <Sidebar />
+        
         <main className="md:pl-72">
-          <Hero />
-          <Projects />
-          <Studio />
-          <Services />
-          <Contact />
+          {/* İçeriklerin süzülerek gelmesi için motion.div ile sarmalıyoruz */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <Hero />
+            <Projects />
+            <Studio />
+            <Services />
+            <Contact />
+          </motion.div>
         </main>
       </div>
     </ReactLenis>
