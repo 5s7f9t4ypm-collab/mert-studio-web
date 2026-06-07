@@ -13,27 +13,23 @@ const navItems = [
 ]
 
 export function Sidebar() {
-const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  setOpen(false) // Menüyü her zaman kapat
+  const [open, setOpen] = useState(false)
 
-  // Sadece # ile başlayanlar (sayfa içi) için kaydırma yap
-  if (href.startsWith("#")) {
-    e.preventDefault()
-    const id = href.replace("#", "")
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setOpen(false) // Menüyü her zaman kapat
+
+    // Sadece # ile başlayanlar (sayfa içi) için kaydırma yap
+    if (href.startsWith("#")) {
+      e.preventDefault()
+      const id = href.replace("#", "")
+      const element = document.getElementById(id)
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        })
+      }
     }
-  }
-  // Eğer href "/projects" ise (veya başka bir rota), 
-  // e.preventDefault() çalışmaz ve Next.js seni o sayfaya otomatik atar.
-}
-    }
-    // Eğer "/projects" gibi farklı bir rota ise, e.preventDefault() 
-    // çalışmaz ve Next.js otomatik olarak o sayfaya yönlendirir.
   }
 
   return (
@@ -59,7 +55,6 @@ const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        {/* Brand */}
         <div>
           <a href="#home" onClick={(e) => handleClick(e, "#home")} className="group block">
             <span className="block font-heading text-4xl leading-none tracking-[0.25em] text-foreground transition-all duration-500 group-hover:tracking-[0.3em]">
@@ -70,7 +65,6 @@ const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
             </span>
           </a>
 
-          {/* Nav */}
           <nav className="mt-20">
             <ul className="flex flex-col gap-1">
               {navItems.map((item) => (
@@ -93,30 +87,17 @@ const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
           </nav>
         </div>
 
-        {/* Footer */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-5 text-[0.65rem] uppercase tracking-[0.25em]">
-            <a
-              href="#"
-              className="text-muted-foreground transition-all duration-500 hover:text-primary"
-            >
-              Instagram
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground transition-all duration-500 hover:text-primary"
-            >
-              LinkedIn
-            </a>
+            <a href="#" className="text-muted-foreground transition-all duration-500 hover:text-primary">Instagram</a>
+            <a href="#" className="text-muted-foreground transition-all duration-500 hover:text-primary">LinkedIn</a>
           </div>
           <p className="text-[0.65rem] uppercase leading-relaxed tracking-[0.2em] text-muted-foreground">
-            İstanbul
-            <br />© 2026 MERT Studio
+            İstanbul<br />© 2026 MERT Studio
           </p>
         </div>
       </aside>
 
-      {/* Mobile overlay */}
       {open && (
         <button
           aria-label="Menüyü kapat"
